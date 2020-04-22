@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.devcases.springboot.crud.library.model.Book;
 import com.devcases.springboot.crud.library.service.BookService;
@@ -39,7 +40,7 @@ public class BookController {
     }
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String addNewBook(@Valid @ModelAttribute Book book, BindingResult result, Model model) {
+    public String addNewBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "new-book";
         }
@@ -60,13 +61,13 @@ public class BookController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateBook(@PathVariable Long id, @Valid @ModelAttribute Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "edit-book";
-        }
-        service.findById(id)
+    public String updateBook(@PathVariable Long id, @RequestParam(value = "author", defaultValue = "") String author, @RequestParam(value = "name", defaultValue = "") String name, Model model) {
+        
+        Book b = service.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
-        service.save(book);
+        b.setAuthor(author);
+        b.setName(name);
+        service.save(b);
         return "redirect:/";
 
     }

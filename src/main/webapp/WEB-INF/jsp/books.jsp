@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +19,20 @@
         <div>
             <h2>Library</h2>
             <hr/>
-            <a href="/new-book">
+            <a href="${contextPath}/new-book">
                 <button type="submit">Add new book</button>
             </a>
-            <a href="/nextpage">
+            <a href="${contextPath}/nextpage">
                 <button type="submit">Next Page</button>
             </a>
+            
+            <form action="${contextPath}/nextpage" method = "get">
+            	<input type="submit" value="Another way to go to the Next Page" />
+            </form>
             <br/><br/>
             <div>
                 <div>
-                    <div>Book list</div>
+                    <div>Books List</div>
                 </div>
                 <div>
                     <table>
@@ -36,8 +47,8 @@
                                 <td>${book.author}</td>
                                 <td>${book.name}</td>
                                 <td>
-                                    <a href="/${book.id}">Edit</a>
-                                    <form action="/${book.id}/delete" method="post">
+                                    <a href="${contextPath}/${book.id}">Edit</a>
+                                    <form action="${contextPath}/${book.id}/delete" method="post">
                                         <input type="submit" value="Delete" />
                                     </form>
                                 </td>

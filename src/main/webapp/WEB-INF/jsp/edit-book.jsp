@@ -1,6 +1,11 @@
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+
 <!DOCTYPE html>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html lang="en">
 <head>
     <%@ page isELIgnored="false" %>
@@ -12,28 +17,26 @@
         <h2>New User</h2>
         <div>
             <div>
-                <form:form action="${book.id}/update" modelAttribute="book" method="post">
+                <form action="${contextPath}/${book.id}/update" method="post">
                     <div>
                         <div>
                             Id: ${book.id}
                         </div>
                         <div>
-                            <form:label path="author">Author</form:label>
-                            <form:input type="text" id="author" path="author"/>
-                            <form:errors path="author" />
+                            <label>Author</label>
+                            <input type="text" id="author" name="author" value = "${book.author}"/>
                         </div>
                         <div>
-                            <form:label path="name">Name</form:label>
-                            <form:input type="text" id="name" path="name"/>
-                            <form:errors path="name" />
+                            <label>Name</label>
+                            <input type="text" id="name" name="name" value = "${book.name}"/>
                         </div>
                     </div>
                     <div>
                         <div>
-                            <input type="submit" value="Update User">
+                            <input type="submit" value="Update Book">
                         </div>
                     </div>
-                </form:form>
+                 </form>
             </div>
         </div>
     </div>

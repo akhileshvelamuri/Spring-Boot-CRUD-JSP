@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateBook(@PathVariable Long id, @RequestParam(value = "author", defaultValue = "") String author, @RequestParam(value = "name", defaultValue = "") String name, Model model) {
+    public String updateBook(@PathVariable("id") Long id, @RequestParam(value = "author", defaultValue = "") String author, @RequestParam(value = "name", defaultValue = "") String name, Model model) {
         
         Book b = service.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));

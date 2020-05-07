@@ -17,7 +17,7 @@
         <h2>New User</h2>
         <div>
             <div>
-                <form action="${contextPath}/${book.id}/update" method="post">
+                <form action="${contextPath}/${book.id}/${book.name}/update" method="post">
                     <div>
                         <div>
                             Id: ${book.id}

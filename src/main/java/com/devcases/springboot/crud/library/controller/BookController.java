@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.devcases.springboot.crud.library.model.Book;
@@ -26,8 +28,7 @@ public class BookController {
         this.service = service;
     }
     
-    //@GetMapping("/")
-    @GetMapping
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showAllBooks(Model model) {
         model.addAttribute("books", service.findAll());
         return "books";
@@ -45,9 +46,6 @@ public class BookController {
             return "new-book";
         }
         service.save(book);
-        //model.addAttribute("books", service.findAll());
-        //return "books";
-        
         return "redirect:/";
 
     }
@@ -60,11 +58,10 @@ public class BookController {
         return "edit-book";
     }
 
-    @PostMapping("/{id}/update")
-    public String updateBook(@PathVariable("id") Long id, @RequestParam(value = "author", defaultValue = "") String author, @RequestParam(value = "name", defaultValue = "") String name, Model model) {
+    @PostMapping("/{id}/{bname}/update")
+    public String updateBook(@PathVariable("id") Long id, @PathVariable("bname") String bname, @RequestParam(value = "author", defaultValue = "") String author, @RequestParam(value = "name", defaultValue = "") String name, Model model) {
         
-        Book b = service.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+    	Book b = service.findByIdandName(id, bname);
         b.setAuthor(author);
         b.setName(name);
         service.save(b);

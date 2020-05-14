@@ -8,8 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
-
-	@Query(value = "select * from book where id = ?1 and name = ?2", nativeQuery = true)
-	Book findbyIdandName(Long id, String name);
 	
 }

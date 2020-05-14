@@ -20,66 +20,66 @@ import com.devcases.springboot.crud.library.service.BookService;
 
 @Controller
 public class BookController {
-	
+
 	private BookService service;
 
-    @Autowired
-    public BookController(BookService service) {
-        this.service = service;
-    }
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showAllBooks(Model model) {
-        model.addAttribute("books", service.findAll());
-        return "books";
-    }
-    
-    @GetMapping("/new-book")
-    public String showBookCreationForm(Model model) {
-        model.addAttribute("book", new Book());
-        return "new-book";
-    }
+	@Autowired
+	public BookController(BookService service) {
+		this.service = service;
+	}
 
-    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String addNewBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "new-book";
-        }
-        service.save(book);
-        return "redirect:/";
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String showAllBooks(Model model) {
+		model.addAttribute("books", service.findAll());
+		return "books";
+	}
 
-    }
+	@GetMapping("/new-book")
+	public String showBookCreationForm(Model model) {
+		model.addAttribute("book", new Book());
+		return "new-book";
+	}
 
-    @GetMapping("/{id}")
-    public String showBookdById(@PathVariable Long id, Model model) {
-        Book book = service.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
-        model.addAttribute("book", book);
-        return "edit-book";
-    }
+	@PostMapping(value = "/add", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String addNewBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "new-book";
+		}
+		service.save(book);
+		return "redirect:/";
 
-    @PostMapping("/{id}/{bname}/update")
-    public String updateBook(@PathVariable("id") Long id, @PathVariable("bname") String bname, @RequestParam(value = "author", defaultValue = "") String author, @RequestParam(value = "name", defaultValue = "") String name, Model model) {
-        
-    	Book b = service.findByIdandName(id, bname);
-        b.setAuthor(author);
-        b.setName(name);
-        service.save(b);
-        return "redirect:/";
+	}
 
-    }
+	@GetMapping("/{id}")
+	public String showBookdById(@PathVariable("id") Long id, Model model) {
+		Book book = service.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+		model.addAttribute("book", book);
+		return "edit-book";
+	}
 
-    @PostMapping("/{id}/delete")
-    public String deleteBook(@PathVariable Long id, Model model) {
-        service.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
-        service.deleteById(id);
-        return "redirect:/";
-    }
-    
-    @GetMapping("/nextpage")
-    public String showNext(Model model) {
-        return "next";
-    }
+	@PostMapping("/{id}/update")
+	public String updateBook(@PathVariable("id") Long id,
+			@RequestParam(value = "author", defaultValue = "") String author,
+			@RequestParam(value = "name", defaultValue = "") String name, Model model) {
+
+		Book b = service.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+		b.setAuthor(author);
+		b.setName(name);
+		service.save(b);
+		return "redirect:/";
+
+	}
+
+	@PostMapping("/{id}/delete")
+	public String deleteBook(@PathVariable("id") Long id, Model model) {
+		service.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+		service.deleteById(id);
+		return "redirect:/";
+	}
+
+	@GetMapping("/nextpage")
+	public String showNext(Model model) {
+		return "next";
+	}
 
 }

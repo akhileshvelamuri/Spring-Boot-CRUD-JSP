@@ -17,18 +17,18 @@
         <h2>New User</h2>
         <div>
             <div>
-                <form action="${contextPath}/${book.id}/update" method="post">
+                <form action="${contextPath}/${book.name}/update" method="post">
                     <div>
                         <div>
                             Id: ${book.id}
                         </div>
                         <div>
                             <label>Author</label>
-                            <input type="text" id="author" name="author"/>
+                            <input type="text" id="author" name="author" value = "${book.author}"/>
                         </div>
                         <div>
                             <label>Name</label>
-                            <input type="text" id="name" name="name"/>
+                            <input type="text" id="name" name="name" value = "${book.name}"/>
                         </div>
                     </div>
                     <div>

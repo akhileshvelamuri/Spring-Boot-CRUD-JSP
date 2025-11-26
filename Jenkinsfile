@@ -6,7 +6,7 @@ pipeline {
     }
     
     tools {
-        jdk 'JDK-8'
+        jdk 'JDK-8' // JDK 8
         maven 'Maven-3.6'
     }
     
@@ -48,3 +48,4 @@ pipeline {
         }
     }
 }
+

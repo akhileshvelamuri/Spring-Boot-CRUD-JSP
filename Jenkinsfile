@@ -8,7 +8,7 @@ pipeline {
     agent any
     
     tools {
-        jdk 'JDK-8'
+        jdk 'JDK-8'   // Java 8
         maven 'Maven-3.6'
     }
     
@@ -165,3 +165,4 @@ pipeline {
         }
     }
 }
+

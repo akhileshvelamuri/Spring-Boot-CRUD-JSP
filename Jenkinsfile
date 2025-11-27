@@ -1,3 +1,10 @@
+// Use properties() at the top - more reliable than triggers block
+properties([
+    pipelineTriggers([
+        githubPush()
+    ])
+])
+
 pipeline {
     agent any
     
@@ -44,6 +51,7 @@ pipeline {
         }
     }
 }
+
 
 
 

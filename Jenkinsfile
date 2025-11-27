@@ -1,10 +1,6 @@
 pipeline {
     agent any
     
-    triggers {
-        githubPush()  // Enables GitHub webhook trigger
-    }
-    
     tools {
         jdk 'JDK-8' // JDK 8
         maven 'Maven-3.6' // Maven 3.6.x
@@ -48,6 +44,7 @@ pipeline {
         }
     }
 }
+
 
 
 
